@@ -62,10 +62,9 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  text-align: left; /* Left align text inside card */
+  text-align: left; 
 }
 
-/* Rest of sections */
 .education-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px; max-width: 1100px; margin: 0 auto; padding: 20px;
