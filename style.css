@@ -74,8 +74,8 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 
 .contact-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 .contact-info { background: #f4f7fa; padding: 40px; border-radius: 20px; }
-.link-item { text-decoration: none; color: var(--primary); font-weight: 600; }
-.contact-form { display: flex; flex-direction: column; gap: 15px; }
+.link-item { text-decoration: none; color: var(--primary); font-weight: 600;}
+.contact-form { display: flex; flex-direction: column; gap: 15px;  }
 .form-row { display: flex; gap: 15px; }
 input, textarea { padding: 14px; border: 1px solid #ddd; border-radius: 10px; width: 100%; font-family: inherit; }
 textarea { height: 160px; resize: none; }
@@ -95,4 +95,9 @@ footer { background: var(--dark); color: white; text-align: center; padding: 40p
   #check:checked ~ .nav-links { left: 0; }
   .hero { flex-direction: column-reverse; text-align: center; padding: 80px 5% 60px; clip-path: none; }
   .form-row { flex-direction: column; }
+}
+
+.one{
+  text-decoration: none;
+  color: black;
 }
