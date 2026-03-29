@@ -101,3 +101,19 @@ footer { background: var(--dark); color: white; text-align: center; padding: 40p
   text-decoration: none;
   color: black;
 }
+.link{
+  margin-right: 14px;
+  height: 20px;
+}
+.number{
+  margin-right: 10px;
+  height: 26px;
+}
+.location{
+  margin-right: 16px;
+  height: 26px;
+}
+.mail{
+  margin-right: 17px;
+  height: 15px;
+}
