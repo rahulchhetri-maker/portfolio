@@ -93,11 +93,11 @@ footer { background: var(--dark); color: white; text-align: center; padding: 40p
 }
 .number{
   margin-right: 10px;
-  height: 26px;
+  height: 24px;
 }
 .location{
   margin-right: 16px;
-  height: 26px;
+  height: 24px;
 }
 .mail{
   margin-right: 17px;
@@ -121,7 +121,7 @@ footer { background: var(--dark); color: white; text-align: center; padding: 40p
 }
 .number{
   margin-right: 10px;
-  height: 19px;
+  height: 24px;
 }
 .location{
   margin-right: 16px;
