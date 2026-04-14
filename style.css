@@ -118,7 +118,6 @@ footer { background: var(--dark); color: white; text-align: center; padding: 40p
   padding-top: 120px;
   z-index: 999;
 }
-
 .popup-content {
   position: relative;
   text-align: center;
@@ -150,6 +149,9 @@ footer { background: var(--dark); color: white; text-align: center; padding: 40p
   align-items: center;
   padding: 0;
   line-height: 1;
+}
+body.lock-scroll{
+  overflow: hidden;
 }
 @media (max-width: 858px) {
   .checkbtn { display: block; }

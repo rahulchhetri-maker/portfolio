@@ -46,17 +46,18 @@ form.addEventListener('submit', async (e) => {
 
 window.onload = function() {
 
-  let expiryDate = new Date(2026, 3, 19); // 19 April 2026
+  let expiryDate = new Date(2026, 3, 19);
   let today = new Date();
 
-  if (today > expiryDate) {
-    document.getElementById("popup").style.display = "none";
-    return;
-  }
+  if (today > expiryDate) return;
 
   document.getElementById("popup").style.display = "flex";
+
+  document.body.classList.add("lock-scroll");
 }
 
 function closePopup() {
   document.getElementById("popup").style.display = "none";
+
+  document.body.classList.remove("lock-scroll");
 }
