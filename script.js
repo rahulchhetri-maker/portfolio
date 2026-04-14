@@ -43,3 +43,20 @@ form.addEventListener('submit', async (e) => {
     btn.disabled = false;
   }
 });
+
+window.onload = function() {
+
+  let expiryDate = new Date(2026, 3, 19); // 19 April 2026
+  let today = new Date();
+
+  if (today > expiryDate) {
+    document.getElementById("popup").style.display = "none";
+    return;
+  }
+
+  document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
