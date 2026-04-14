@@ -165,11 +165,11 @@ body.lock-scroll {
 }
 
 .close-text {
-  margin-top: 10px;
+  margin-top: 20px;
   background: none;
   border: none;
   color: #ffffff;
-  text-shadow:  0 0 8px rgba(255,255,255,0.2);
+  text-shadow:  0 0 8px rgba(255,255,255,0.3);
   font-size: 17px;
   font-weight: 500;
 
