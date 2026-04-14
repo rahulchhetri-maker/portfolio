@@ -44,20 +44,30 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-window.onload = function() {
+window.onload = function () {
 
   let expiryDate = new Date(2026, 3, 19);
   let today = new Date();
 
   if (today > expiryDate) return;
 
-  document.getElementById("popup").style.display = "flex";
+  let popup = document.getElementById("popup");
 
+  popup.style.display = "flex";
   document.body.classList.add("lock-scroll");
-}
+
+  setTimeout(() => {
+    popup.classList.add("show");
+  }, 50);
+};
 
 function closePopup() {
-  document.getElementById("popup").style.display = "none";
+  let popup = document.getElementById("popup");
 
-  document.body.classList.remove("lock-scroll");
+  popup.classList.remove("show");
+
+  setTimeout(() => {
+    popup.style.display = "none";
+    document.body.classList.remove("lock-scroll");
+  }, 400);
 }
