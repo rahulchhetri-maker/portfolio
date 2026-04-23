@@ -45,13 +45,15 @@ form.addEventListener('submit', async (e) => {
 });
 
 window.onload = function () {
-
   let expiryDate = new Date(2026, 3, 19);
   let today = new Date();
-
-  if (today > expiryDate) return;
-
   let popup = document.getElementById("popup");
+
+  if (today > expiryDate) {
+    popup.style.display = "none";
+    document.body.classList.remove("lock-scroll");
+    return;
+  }
 
   popup.style.display = "flex";
   document.body.classList.add("lock-scroll");
@@ -59,6 +61,10 @@ window.onload = function () {
   setTimeout(() => {
     popup.classList.add("show");
   }, 50);
+
+  setTimeout(() => {
+    closePopup();
+  }, 5000);
 };
 
 function closePopup() {
