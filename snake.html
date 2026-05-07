@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Snake Xenzia</title>
+<link rel="stylesheet" href="snakestyle.css">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="app">
+  <header>
+    <div class="title">SNAKE XENZIA</div>
+    <div class="subtitle">Devloped by Rahul Chhetri</div>
+  </header>
+
+  <div class="game-wrapper">
+    <!-- Left Panel -->
+    <div class="side-panel" id="leftPanel">
+      <div class="stat-block">
+        <div class="stat-label">Score</div>
+        <div class="stat-value" id="scoreDisplay">0</div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-block">
+        <div class="stat-label">High Score</div>
+        <div class="stat-value gold" id="hiScoreDisplay">0</div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-block">
+        <div class="stat-label">Level</div>
+        <div class="stat-value cyan" id="levelDisplay">1</div>
+        <div class="level-indicator">
+          <div class="level-bar-bg">
+            <div class="level-bar-fill" id="levelBar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-block">
+        <div class="stat-label">Lives</div>
+        <div class="stat-value" id="livesDisplay">❤️❤️❤️</div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-block">
+        <div class="stat-label">Power-ups</div>
+        <div class="powerup-slots" id="powerupSlots">
+          <div class="powerup-slot" title="Speed Boost">⚡</div>
+          <div class="powerup-slot" title="Ghost Mode">👻</div>
+          <div class="powerup-slot" title="Shield">🛡️</div>
+          <div class="powerup-slot" title="Magnet">🧲</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-block">
+        <div class="stat-label">Best Runs</div>
+        <div class="leaderboard" id="leaderboard"></div>
+      </div>
+    </div>
+
+    <!-- Canvas -->
+    <div class="canvas-container" id="canvasContainer">
+      <canvas id="gameCanvas"></canvas>
+
+      <!-- Start Screen -->
+      <div class="overlay" id="startOverlay">
+        <div class="overlay-title green">SNAKE XENZIA</div>
+        <div class="overlay-score">
+          Classic Nokia Snake · Remastered<br><br>
+          🍎 Eat food to grow<br>
+          ⚡ Collect power-ups<br>
+          🏆 Beat your high score
+        </div>
+        <button class="btn btn-primary" onclick="startGame()">▶ PLAY</button>
+        <button class="btn btn-secondary btn-sm" onclick="showSettings()">⚙ SETTINGS</button>
+      </div>
+
+      <!-- Pause Screen -->
+      <div class="overlay hidden" id="pauseOverlay">
+        <div class="overlay-title" style="color:var(--accent2)">PAUSED</div>
+        <button class="btn btn-primary" onclick="resumeGame()">▶ RESUME</button>
+        <button class="btn btn-secondary btn-sm" onclick="restartGame()">↺ RESTART</button>
+        <button class="btn btn-secondary btn-sm" onclick="goMenu()">⌂ MENU</button>
+      </div>
+
+      <!-- Game Over Screen -->
+      <div class="overlay hidden" id="gameOverOverlay">
+        <div class="overlay-title red">GAME OVER</div>
+        <div class="overlay-score" id="finalScoreText"></div>
+        <button class="btn btn-primary" onclick="restartGame()">▶ PLAY AGAIN</button>
+        <button class="btn btn-secondary btn-sm" onclick="goMenu()">⌂ MENU</button>
+      </div>
+
+      <!-- Level Up Screen -->
+      <div class="overlay hidden" id="levelUpOverlay">
+        <div class="overlay-title gold">LEVEL UP!</div>
+        <div class="overlay-score" id="levelUpText"></div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="side-panel" id="rightPanel">
+      <div class="stat-block">
+        <div class="stat-label">Length</div>
+        <div class="stat-value" id="lengthDisplay">3</div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-block">
+        <div class="stat-label">Speed</div>
+        <div class="stat-value cyan" id="speedDisplay">5</div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-block">
+        <div class="stat-label">Combo</div>
+        <div class="stat-value gold" id="comboDisplay">x1</div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-block">
+        <div class="stat-label">Time</div>
+        <div class="stat-value" id="timeDisplay">00:00</div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-block">
+        <div class="stat-label">Controls</div>
+        <div style="font-size:9px;color:var(--muted);line-height:2">
+          ↑↓←→ / WASD · Move<br>
+          P / ESC · Pause<br>
+          Space · Speed Boost
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <button class="btn btn-secondary btn-sm" onclick="togglePause()" id="pauseBtn">⏸ PAUSE</button>
+        <button class="btn btn-secondary btn-sm" onclick="showSettings()">⚙ SETTINGS</button>
+        <button class="btn btn-secondary btn-sm" onclick="goMenu()">⌂ MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Controls -->
+  <div id="mobileControls">
+    <div class="ctrl-row">
+      <div class="ctrl-btn" id="btnUp" ontouchstart="mobileDir('UP')" ontouchend="mobileRelease('UP')">▲</div>
+    </div>
+    <div class="ctrl-row">
+      <div class="ctrl-btn" id="btnLeft" ontouchstart="mobileDir('LEFT')" ontouchend="mobileRelease('LEFT')">◀</div>
+      <div class="ctrl-btn" id="btnDown" ontouchstart="mobileDir('DOWN')" ontouchend="mobileRelease('DOWN')">▼</div>
+      <div class="ctrl-btn" id="btnRight" ontouchstart="mobileDir('RIGHT')" ontouchend="mobileRelease('RIGHT')">▶</div>
+    </div>
+    <div class="ctrl-row">
+      <div class="ctrl-btn" style="width:128px;font-size:13px;letter-spacing:1px" ontouchstart="togglePause()">⏸ PAUSE</div>
+    </div>
+  </div>
+
+  <!-- Settings Panel -->
+  <div id="settingsPanel" style="display:none;">
+    <div class="settings-title">⚙ SETTINGS & CUSTOMIZATION</div>
+    <div class="settings-grid">
+
+      <div class="setting-group">
+        <div class="setting-label">Quality</div>
+        <select class="setting-select" id="qualitySelect">
+          <option value="ultra">Ultra (Particles + Glow + Shadows)</option>
+          <option value="high" selected>High (Particles + Glow)</option>
+          <option value="medium">Medium (Basic Effects)</option>
+          <option value="low">Low (Minimal)</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-label">Difficulty</div>
+        <select class="setting-select" id="diffSelect">
+          <option value="easy">Easy (Slow, Walls = Safe)</option>
+          <option value="normal" selected>Normal</option>
+          <option value="hard">Hard (Fast, No Ghost)</option>
+          <option value="extreme">Extreme (Death on wall)</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-label">Snake Skin</div>
+        <select class="setting-select" id="skinSelect">
+          <option value="neon">Neon Green</option>
+          <option value="fire">Fire</option>
+          <option value="ice">Ice Blue</option>
+          <option value="gold">Golden</option>
+          <option value="rainbow">Rainbow</option>
+          <option value="classic">Classic Nokia</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-label">Board Theme</div>
+        <select class="setting-select" id="boardThemeSelect">
+          <option value="dark">Dark Space</option>
+          <option value="matrix">Matrix Grid</option>
+          <option value="retro">Retro Nokia</option>
+          <option value="neon">Neon City</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-label">Initial Speed</div>
+        <div class="range-row">
+          <input type="range" class="setting-range" id="speedRange" min="1" max="10" value="5">
+          <span class="range-val" id="speedVal">5</span>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-label">Grid Size</div>
+        <select class="setting-select" id="gridSelect">
+          <option value="small">Small (20x20)</option>
+          <option value="medium" selected>Medium (30x30)</option>
+          <option value="large">Large (40x40)</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-label">Starting Lives</div>
+        <div class="range-row">
+          <input type="range" class="setting-range" id="livesRange" min="1" max="5" value="3">
+          <span class="range-val" id="livesVal">3</span>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-label">Food Count</div>
+        <div class="range-row">
+          <input type="range" class="setting-range" id="foodRange" min="1" max="5" value="2">
+          <span class="range-val" id="foodVal">2</span>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-label">Power-ups</div>
+        <select class="setting-select" id="powerupSelect">
+          <option value="on">Enabled</option>
+          <option value="off">Disabled</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-label">Wall Mode</div>
+        <select class="setting-select" id="wallSelect">
+          <option value="wrap">Wrap Around</option>
+          <option value="die">Die on Wall</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-label">Show Grid Lines</div>
+        <select class="setting-select" id="gridLineSelect">
+          <option value="on">Show</option>
+          <option value="off">Hide</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-label">Player Name</div>
+        <input type="text" class="setting-input" id="playerNameInput" value="PLAYER" maxlength="10">
+      </div>
+
+    </div>
+    <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="applySettings()">✓ APPLY & PLAY</button>
+      <button class="btn btn-secondary" onclick="hideSettings()">✕ CANCEL</button>
+      <button class="btn btn-secondary btn-sm" onclick="resetSettings()">↺ RESET DEFAULTS</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<script src="snakescript.js"></script>
+
+</body>
+</html>
