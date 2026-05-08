@@ -835,3 +835,125 @@ window.addEventListener('resize', () => {
 init();
 renderBoard_static();
 renderLeaderboard();
+// ---- Theme Toggle ----
+function toggleTheme() {
+  const body = document.body;
+  const gameContainer = document.querySelector('.game-container');
+
+  const isLight = body.classList.toggle('light-mode');
+
+  if (gameContainer) {
+    gameContainer.classList.toggle('light-mode');
+  }
+
+  // Update button icon + label
+  const btn = document.getElementById('themeBtn');
+
+  if (btn) {
+    btn.querySelector('.toggle-icon').textContent = isLight ? '☀️' : '🌙';
+  }
+
+  document.getElementById('themeLabel').textContent =
+    isLight ? 'LIGHT' : 'DARK';
+
+  // Save theme
+  localStorage.setItem(
+    'snakeXTheme',
+    isLight ? 'light' : 'dark'
+  );
+
+  // Change outer background
+  if (isLight) {
+    document.body.style.background =
+      'linear-gradient(135deg, #f5f7fa, #d7e1ec)';
+
+    document.body.style.color = '#111';
+
+    if (gameContainer) {
+      gameContainer.style.background =
+        'rgba(255,255,255,0.9)';
+
+      gameContainer.style.boxShadow =
+        '0 0 30px rgba(0,0,0,0.15)';
+    }
+  } else {
+    document.body.style.background =
+      'linear-gradient(135deg, #050510, #0f1020)';
+
+    document.body.style.color = '#fff';
+
+    if (gameContainer) {
+      gameContainer.style.background =
+        'rgba(10,10,20,0.9)';
+
+      gameContainer.style.boxShadow =
+        '0 0 30px rgba(0,255,136,0.2)';
+    }
+  }
+}
+
+// Restore saved theme on load
+(function () {
+  const savedTheme = localStorage.getItem('snakeXTheme');
+
+  if (savedTheme === 'light') {
+
+    document.body.classList.add('light-mode');
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+      const gameContainer =
+        document.querySelector('.game-container');
+
+      // Light body background
+      document.body.style.background =
+        'linear-gradient(135deg, #f5f7fa, #d7e1ec)';
+
+      document.body.style.color = '#111';
+
+      // Light container background
+      if (gameContainer) {
+        gameContainer.classList.add('light-mode');
+
+        gameContainer.style.background =
+          'rgba(255,255,255,0.9)';
+
+        gameContainer.style.boxShadow =
+          '0 0 30px rgba(0,0,0,0.15)';
+      }
+
+      // Update button
+      const btn = document.getElementById('themeBtn');
+
+      if (btn) {
+        btn.querySelector('.toggle-icon').textContent = '☀️';
+      }
+
+      document.getElementById('themeLabel').textContent =
+        'LIGHT';
+    });
+
+  } else {
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+      const gameContainer =
+        document.querySelector('.game-container');
+
+      // Dark body background
+      document.body.style.background =
+        'linear-gradient(135deg, #050510, #0f1020)';
+
+      document.body.style.color = '#fff';
+
+      // Dark container background
+      if (gameContainer) {
+        gameContainer.style.background =
+          'rgba(10,10,20,0.9)';
+
+        gameContainer.style.boxShadow =
+          '0 0 30px rgba(0,255,136,0.2)';
+      }
+    });
+  }
+})();
