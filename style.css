@@ -208,15 +208,15 @@ body.lock-scroll {
   height: 19px;
 }
 .location{
-  margin-right: 14px;
+  margin-right: 13px;
   height: 21px;
 }
 .mail{
-  margin-right: 15px;
-  height: 11px;
+  margin-right: 14px;
+  height: 12px;
 }
 .link{
-  margin-right: 12px;
+  margin-right: 11px;
   height: 15px;
 }
 .link-item { text-decoration: none; color: var(--primary); font-weight: 600; font-size: 13px;}
