@@ -205,16 +205,21 @@ body.lock-scroll {
 }
 .number{
   margin-right: 10px;
-  height: 25px;
+  height: 20px;
 }
 .location{
   margin-right: 16px;
-  height: 26px;
+  height: 21px;
 }
 .mail{
   margin-right: 17px;
-  height: 15px;
+  height: 11px;
 }
+.link{
+  margin-right: 14px;
+  height: 16px;
+}
+.link-item { text-decoration: none; color: var(--primary); font-weight: 600; font-size: 15px;}
 #popup{
   align-items: center;
 }
