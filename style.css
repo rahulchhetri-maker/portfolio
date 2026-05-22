@@ -204,7 +204,7 @@ body.lock-scroll {
   height: 20px;
 }
 .number{
-  margin-right: 8px;
+  margin-right: 12px;
   height: 19px;
 }
 .location{
@@ -219,7 +219,9 @@ body.lock-scroll {
   margin-right: 11px;
   height: 15px;
 }
-.link-item { text-decoration: none; color: var(--primary); font-weight: 600; font-size: 13px;}
+.link-item { text-decoration: none; color: var(--primary); font-weight: 600; font-size: 14px;}
+.contact-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1100px; margin: 0 auto; padding: 0 18px; }
+.contact-info { background: #f4f7fa; padding: 21px; border-radius: 20px; }
 #popup{
   align-items: center;
 }
